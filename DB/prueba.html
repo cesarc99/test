@@ -15,14 +15,19 @@ getDatos("users.db", "usuarios");
 
 
 async function getDatos(file, destino) {
-  let obj = await fetch(file);
-  let txt = await obj.text();
-  document.getElementById(destino).innerHTML = "<pre>" + txt + "</pre>";
-  if (destino == "libros") {
-    books = txt;
-  } else {
-    users = txt;
-  }
+
+    fetch("https://simuladordatosddd.netlify.app/db/" + file)
+    .then(response => response.json())
+    .then(txt => {
+          document.getElementById(destino).innerHTML = "<pre>" + txt + "</pre>";
+            if (destino == "libros") {
+              books = txt;
+            } else {
+              users = txt;
+            }
+          }
+	)
+    .catch(error => console.log("Ocurrió un error! " + error));
 }
 </script>
 
