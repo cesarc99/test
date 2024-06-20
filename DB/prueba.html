@@ -3,15 +3,19 @@
 <body>
 <button onclick="alert(JSON.stringify(books, null, 2));">books</button>
 <button onclick="alert(JSON.stringify(users, null, 2));">users</button>
+<button onclick="alert(JSON.stringify(accesses, null, 2));">userAccess</button>
 <h2>Libros</h2>
 <p id="libros"></p>
 <h2>Usuarios</h2>
 <p id="usuarios"></p>
+<h2>Accesos</h2>
+<p id="accesos"></p>
 <script>
-var books = [], users = [];
+var books = [], users = [], accesses = [];
 
 getDatos("books.db", "libros");
 getDatos("users.db", "usuarios");
+getDatos("userAccess.db", "accesos");
 
 
 async function getDatos(file, destino) {
@@ -23,9 +27,10 @@ async function getDatos(file, destino) {
           document.getElementById(destino).innerHTML = "<pre>" + txt + "</pre>";
             if (destino == "libros") {
               books = data;
-            } else {
+            } else if (destino == "usuarios") {
               users = data;
-            }
+            } else {
+			  accesses = data;
           }
 	)
     .catch(error => console.log("Ocurrió un error! " + error));
